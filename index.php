@@ -35,6 +35,11 @@ $usuario_tipo = strtolower(trim($_SESSION['usuario_tipo']));
             <ul>
                 <li><a href="cadastrar_aluno.php">Cadastrar Aluno</a></li>
             </ul>
+            <?php elseif ($usuario_tipo == 'administrativo'): ?>
+    <h2>Ações Disponíveis</h2>
+    <ul>
+        <li><a href="cadastrar_aluno.php">Cadastrar Aluno</a></li>
+    </ul>
         <?php elseif ($usuario_tipo == 'coordenador'): ?>
             <h2>Ações Disponíveis</h2>
             <ul>
@@ -89,6 +94,9 @@ $result_oficinas = $stmt_oficinas->get_result();
         <?php endwhile; ?>
     </ul>
 </div>
+
+
+
 
 </body>
 </html>
