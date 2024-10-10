@@ -75,20 +75,20 @@ $result_oficinas = $stmt_oficinas->get_result();
 // Exibir as oficinas em uma lista
 ?>
 
-    <div class="container">
-        <h2>Selecionar Oficina</h2>
-        <form action="registrar_presenca.php" method="post">
-            <label for="oficina">Escolha a Oficina:</label>
-            <ul>
-                <?php while ($oficina = $result_oficinas->fetch_assoc()): ?>
-                    <li>
-                        <input type="radio" name="id_oficina" value="<?php echo $oficina['id']; ?>" required>
-                        <?php echo htmlspecialchars($oficina['nome']); ?>
-                    </li>
-                <?php endwhile; ?>
-            </ul>
-            <button type="submit">Selecionar Oficina</button>
-        </form>
-    </div>
+<div class="container">
+    <h2>Selecionar Oficina</h2>
+    <label for="oficina">Escolha a Oficina:</label>
+    <ul>
+        <?php while ($oficina = $result_oficinas->fetch_assoc()): ?>
+            <li>
+                <!-- Alterar input radio para um link personalizado com CSS -->
+                <a href="registrar_presenca.php?id_oficina=<?php echo $oficina['id']; ?>" class="link-oficina">
+                    <?php echo htmlspecialchars($oficina['nome']); ?>
+                </a>
+            </li>
+        <?php endwhile; ?>
+    </ul>
+</div>
+
 </body>
 </html>
