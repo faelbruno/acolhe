@@ -11,13 +11,30 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 // Recuperar o id da oficina
+$usuario_tipo = strtolower(trim($_SESSION['usuario_tipo']));
 $id_oficina = isset($_GET['id_oficina']) ? $_GET['id_oficina'] : null;
 if (!$id_oficina) {
     die("Erro: A oficina não foi selecionada.");
 }
 
+// Consulta para buscar o nome da oficina
+$sql_oficina = "SELECT nome FROM oficinas WHERE id = ?";
+$stmt_oficina = $conn->prepare($sql_oficina);
+$stmt_oficina->bind_param("i", $id_oficina);
+$stmt_oficina->execute();
+$result_oficina = $stmt_oficina->get_result();
+// Verificar se a oficina foi encontrada
+if ($result_oficina->num_rows > 0) {
+    $oficina = $result_oficina->fetch_assoc();
+    $nome_oficina = $oficina['nome']; // Armazena o nome da oficina
+} else {
+    die("Erro: Oficina não encontrada.");
+}
+
 // Consultar os alunos da oficina
-$sql_alunos = "SELECT * FROM alunos WHERE oficina = ?";
+//$sql_alunos = "SELECT * FROM alunos WHERE oficina = ?";
+$sql_alunos = "SELECT nome, id, foto FROM alunos WHERE oficina = ?";
+
 $stmt_alunos = $conn->prepare($sql_alunos);
 $stmt_alunos->bind_param("i", $id_oficina);
 $stmt_alunos->execute();
@@ -74,33 +91,42 @@ if (isset($mensagem)) {
 </head>
 <body>
     <div class="container">
-        <h2>Registrar Presença</h2>
+    <img src="lib/img/logo-mini.png" alt="Logo Acolhe" />
+        <h1>Bem-vindo ao ACOLHE!</h1>
+        <p>Você está logado como: <strong><?php echo ucfirst($usuario_tipo); ?></strong></p>
+        
+        <h2>Registro de Presença dos Alunos da <?php echo htmlspecialchars($nome_oficina); ?></h2>
+        
         <form action="registrar_presenca.php?id_oficina=<?php echo $id_oficina; ?>" method="post">
             <input type="hidden" name="data_presenca" value="<?php echo date("Y-m-d"); ?>"> <!-- Data atual -->
 
-            <table>
-                <tr>
-                    <th>Nome do Aluno</th>
-                    <th>Presença</th>
-                </tr>
-                <?php while ($aluno = $result_alunos->fetch_assoc()): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($aluno['nome']); ?></td>
-            <td>
-                <select name="presencas[<?php echo $aluno['id']; ?>]">
+            <div class="alunos-container">
+    <?php while ($aluno = $result_alunos->fetch_assoc()): ?>
+        <div class="aluno-card">
+            <div class="aluno-foto">
+                <?php if (!empty($aluno['foto'])): ?>
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($aluno['foto']); ?>" alt="Foto do Aluno" width="100" height="100">
+                <?php else: ?>
+                    <img src="lib/img/avatar.jpg" alt="Aluno sem foto" width="100" height="100">
+                <?php endif; ?>
+            </div>
+            <div class="aluno-nome">
+                <?php echo htmlspecialchars($aluno['nome']); ?>
+            </div>
+            <div class="aluno-presenca">
+                <select class="tamanho" name="presencas[<?php echo $aluno['id']; ?>]">
                     <option value="">Selecione</option>
                     <option value="presente">Presente</option>
                     <option value="ausente">Ausente</option>
                     <option value="justificado">Justificado</option>
                 </select>
-            </td>
-            <td>
-                <a href="observacoes.php?id_matricula=<?php echo $aluno['id']; ?>">Observações</a> <!-- Correção no link -->
-            </td>
-        </tr>
+                <a class="tamanho" href="observacoes.php?id_matricula=<?php echo $aluno['id']; ?>">Anotações</a>
+            </div>
+            
+        </div>
     <?php endwhile; ?>
-            </table>
-            <button type="submit">Registrar Presença</button>
+</div>
+<button type="submit">Registrar Presença</button>
         </form>
     </div>
 </body>

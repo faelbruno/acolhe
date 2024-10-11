@@ -1,13 +1,13 @@
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+body{
+    background-color: #D2E9FF;
+    font-family: Roboto,Helvetica Neue,sans-serif;
+    text-align: center;
+    margin: 10px auto 0 auto;
 }
 
 h2 {
     text-align: center;
+    font-family: Roboto,Helvetica Neue,sans-serif;
 }
 
 label {
@@ -27,28 +27,28 @@ select {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50;
+    background: linear-gradient(to top, #0066CC 0, #0066CC 40%, #0066CC 60%, #1A76D1 100%);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 20px;
 }
 
 button:hover {
-    background-color: #45a049;
+    
 }
 
 .container {
-    max-width: 400px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-family: Roboto,Helvetica Neue,sans-serif;
+    background-color: #fff;
 }
 
-h2 {
-    text-align: center;
-}
 
 label {
     display: block;
@@ -64,31 +64,11 @@ input[type="password"] {
     border-radius: 4px;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-}
 
 h1 {
     margin-bottom: 20px;
+    font-family: Roboto,Helvetica Neue,sans-serif;
+    font-size: 20px;
 }
 
 h2 {
@@ -104,18 +84,6 @@ ul li {
     margin: 10px 0;
 }
 
-button {
-    padding: 10px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #e53935;
-}
 .link-oficina {
     display: inline-block;
     padding: 10px 15px;
@@ -129,3 +97,145 @@ button:hover {
 .link-oficina:hover {
     background-color: #0056b3;
 }
+ /* Estilos para as oficinas */
+ .oficina {
+    display: inline-block;
+    margin: 5px;
+    padding: 20px;
+    background-color: #E6E6E6;
+    text-align: center;
+    transition: all 0.3s ease;
+    filter: grayscale(100%);
+    font-family: Roboto,Helvetica Neue,sans-serif;
+    border-radius: 15px;
+    text-decoration: none;
+    width: 168px;
+}
+.oficina img {
+    max-width: 100px;
+    height: auto;
+}
+.oficina:hover {
+    filter: grayscale(0%);
+    background-color: #D2E9FF;
+}
+/* Estilos para avisos e aniversariantes */
+
+.avisos-aniversariantes {
+    display: flex;
+    justify-content: space-between; /* Espaça os elementos igualmente */
+    align-items: flex-start; /* Alinha ao topo da div */
+    margin: 20px 0;
+}
+.avisos, .aniversariantes {
+    flex: 1; /* Cada um ocupará a mesma largura */
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #D2E9FF;
+    background-color: #fff;
+    color: #777;
+    border-radius: 5px;
+}
+@media (max-width: 768px) {
+    .avisos-aniversariantes {
+        flex-direction: column;
+    }
+
+    .avisos, .aniversariantes {
+        margin: 10px 0;
+    }
+}
+/* Botão flutuante */
+.btn-suporte {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+        /* Estilos para as oficinas */
+        .oficina {
+            display: inline-block;
+            margin: 10px;
+            padding: 0px;
+            background-color_: #f0f0f0;
+            text-align: center;
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+            font-family: Roboto,Helvetica Neue,sans-serif;
+        }
+        .oficina img {
+            max-width: 100px;
+            height: auto;
+        }
+        .oficina:hover {
+            filter: grayscale(0%);
+        }
+        /* Estilos para avisos e aniversariantes */
+        .avisos, .aniversariantes {
+            margin: 20px 0;
+        }
+        /* Botão flutuante */
+        .btn-suporte {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: Roboto,Helvetica Neue,sans-serif;
+        }
+        /*REGISTRO DE PRESENÇA*/
+        .alunos-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .aluno-card {
+            border: 1px dotted #ccc;
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+            border-radius: 15px;
+        }
+        .aluno-card:hover{
+            background: #D2E9FF;
+        }
+        .aluno-foto img {
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+        .aluno-nome {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .aluno-presenca {
+            margin-top: 10px;
+        }
+    .tamanho, .tamanho:hover{
+        width: 103px;
+        height: 38px;
+        border: 1px solid #999;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 14px;
+        padding: 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #888;
+    }
+
+    .tamanho:hover{
+        border: 1px solid #fff;
+        color: #fff;
+        background-color: #0066CC;
+    }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10-Out-2024 às 19:28
+-- Tempo de geração: 11-Out-2024 às 23:01
 -- Versão do servidor: 10.4.24-MariaDB
 -- versão do PHP: 7.4.29
 
@@ -43,19 +43,46 @@ CREATE TABLE `alunos` (
   `responsavel` varchar(255) DEFAULT NULL,
   `contato` varchar(15) DEFAULT NULL,
   `complemento` varchar(255) DEFAULT NULL,
-  `oficina` int(11) DEFAULT NULL
+  `oficina` int(11) DEFAULT NULL,
+  `foto` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `alunos`:
+--   `id_unidade`
+--       `unidades` -> `id`
+--
 
 --
 -- Extraindo dados da tabela `alunos`
 --
 
-INSERT INTO `alunos` (`id`, `nome`, `idade`, `endereco`, `id_unidade`, `cpf`, `data_nascimento`, `sexo`, `nome_pai`, `nome_mae`, `responsavel`, `contato`, `complemento`, `oficina`) VALUES
-(1, 'Lucas Mendes', 18, 'Rua A, 123, Cuiabá', 1, '888.888.888', '2024-10-01', 'Masculino', 'Fulano de Tal', 'Beltrana de 123', 'Beltrana de 123', '65992252525', 'Esquina 1', 1),
-(2, 'Julia Costa', 19, 'Rua B, 456, Várzea Grande', 1, '2222', '2024-10-09', 'Feminino', 'asdasd', 'asdasd', 'asdasd', '99999', 'asdasd', 1),
-(3, 'Pedro Lima', 17, 'Rua C, 789, Rondonópolis', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4, 'Mariana Rocha', 20, 'Rua D, 321, Nova Olímpia', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(5, 'Thiago Martins', 22, 'Rua E, 654, Cáceres', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `alunos` (`id`, `nome`, `idade`, `endereco`, `id_unidade`, `cpf`, `data_nascimento`, `sexo`, `nome_pai`, `nome_mae`, `responsavel`, `contato`, `complemento`, `oficina`, `foto`) VALUES
+(1, 'Lucas Mendes', 18, 'Rua A, 123, Cuiabá', 1, '888.888.888', '2024-10-01', 'Masculino', 'Fulano de Tal', 'Beltrana de 123', 'Beltrana de 123', '65992252525', 'Esquina 1', 1, NULL),
+(2, 'Julia Costa', 19, 'Rua B, 456, Várzea Grande', 1, '2222', '2024-10-09', 'Feminino', 'asdasd', 'asdasd', 'asdasd', '99999', 'asdasd', 1, NULL),
+(3, 'Pedro Lima', 17, 'Rua C, 789, Rondonópolis', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+(4, 'Mariana Rocha', 20, 'Rua D, 321, Nova Olímpia', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+(5, 'Thiago Martins', 22, 'Rua E, 654, Cáceres', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `avisos`
+--
+
+CREATE TABLE `avisos` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(255) NOT NULL,
+  `mensagem` text NOT NULL,
+  `id_unidade` int(11) DEFAULT NULL,
+  `data_aviso` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `avisos`:
+--   `id_unidade`
+--       `unidades` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -69,6 +96,14 @@ CREATE TABLE `matriculas` (
   `id_oficina` int(11) DEFAULT NULL,
   `data_matricula` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `matriculas`:
+--   `id_aluno`
+--       `alunos` -> `id`
+--   `id_oficina`
+--       `oficinas` -> `id`
+--
 
 --
 -- Extraindo dados da tabela `matriculas`
@@ -96,6 +131,12 @@ CREATE TABLE `observacoes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELACIONAMENTOS PARA TABELAS `observacoes`:
+--   `id_matricula`
+--       `matriculas` -> `id`
+--
+
+--
 -- Extraindo dados da tabela `observacoes`
 --
 
@@ -115,6 +156,12 @@ CREATE TABLE `oficinas` (
   `nome` varchar(255) NOT NULL,
   `id_unidade` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `oficinas`:
+--   `id_unidade`
+--       `unidades` -> `id`
+--
 
 --
 -- Extraindo dados da tabela `oficinas`
@@ -140,6 +187,28 @@ CREATE TABLE `presencas` (
   `status` enum('Presente','Ausente') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- RELACIONAMENTOS PARA TABELAS `presencas`:
+--   `id_matricula`
+--       `matriculas` -> `id`
+--
+
+--
+-- Extraindo dados da tabela `presencas`
+--
+
+INSERT INTO `presencas` (`id`, `id_matricula`, `data`, `status`) VALUES
+(471, 1, '2024-10-11', 'Presente'),
+(472, 2, '2024-10-11', 'Presente'),
+(473, 3, '2024-10-11', 'Presente'),
+(474, 4, '2024-10-11', 'Presente'),
+(475, 5, '2024-10-11', 'Presente'),
+(476, 1, '2024-10-11', 'Presente'),
+(477, 2, '2024-10-11', 'Presente'),
+(478, 3, '2024-10-11', 'Presente'),
+(479, 4, '2024-10-11', 'Presente'),
+(480, 5, '2024-10-11', 'Presente');
+
 -- --------------------------------------------------------
 
 --
@@ -151,6 +220,14 @@ CREATE TABLE `professor_oficinas` (
   `id_professor` int(11) DEFAULT NULL,
   `id_oficina` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `professor_oficinas`:
+--   `id_professor`
+--       `usuarios` -> `id`
+--   `id_oficina`
+--       `oficinas` -> `id`
+--
 
 --
 -- Extraindo dados da tabela `professor_oficinas`
@@ -170,6 +247,10 @@ CREATE TABLE `unidades` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONAMENTOS PARA TABELAS `unidades`:
+--
 
 --
 -- Extraindo dados da tabela `unidades`
@@ -198,6 +279,12 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELACIONAMENTOS PARA TABELAS `usuarios`:
+--   `id_unidade`
+--       `unidades` -> `id`
+--
+
+--
 -- Extraindo dados da tabela `usuarios`
 --
 
@@ -218,6 +305,13 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `id_unidade`) VA
 -- Índices para tabela `alunos`
 --
 ALTER TABLE `alunos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_unidade` (`id_unidade`);
+
+--
+-- Índices para tabela `avisos`
+--
+ALTER TABLE `avisos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_unidade` (`id_unidade`);
 
@@ -283,6 +377,12 @@ ALTER TABLE `alunos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
+-- AUTO_INCREMENT de tabela `avisos`
+--
+ALTER TABLE `avisos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `matriculas`
 --
 ALTER TABLE `matriculas`
@@ -304,7 +404,7 @@ ALTER TABLE `oficinas`
 -- AUTO_INCREMENT de tabela `presencas`
 --
 ALTER TABLE `presencas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=471;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=481;
 
 --
 -- AUTO_INCREMENT de tabela `professor_oficinas`
@@ -333,6 +433,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `alunos`
   ADD CONSTRAINT `alunos_ibfk_1` FOREIGN KEY (`id_unidade`) REFERENCES `unidades` (`id`);
+
+--
+-- Limitadores para a tabela `avisos`
+--
+ALTER TABLE `avisos`
+  ADD CONSTRAINT `avisos_ibfk_1` FOREIGN KEY (`id_unidade`) REFERENCES `unidades` (`id`);
 
 --
 -- Limitadores para a tabela `matriculas`
